@@ -7,5 +7,6 @@ tmp
 bin/*
 !bin/.keep
 
+entrypoint.sh
 
 
