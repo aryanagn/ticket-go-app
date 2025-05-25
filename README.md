@@ -34,7 +34,7 @@ A full-stack ticket booking application built with Golang (backend) and React Na
 
 ## Architecture
 
-- **Backend**: Golang (Fiber), PostgreSQL, JWT authentication, Docker, CI/CD Pipeline
+- **Backend**: Golang (Fiber/GORM), PostgreSQL, JWT authentication, Docker, CI/CD Pipeline with 1Password CLI integration
 - **Frontend**: React Native, Redux (or Context API) for state management, REST API integration
 - **Communication**: RESTful HTTP/JSON between mobile app and backend server
 
@@ -46,6 +46,7 @@ A full-stack ticket booking application built with Golang (backend) and React Na
 
 - Golang  
 - Fiber
+- GORM
 - JWT (authentication)  
 - PostgreSQL (database)  
 
@@ -53,7 +54,7 @@ A full-stack ticket booking application built with Golang (backend) and React Na
 
 - **User Module**: Handles registration, login, JWT token issuance, and user profile
 - **Event Module**: CRUD operations for events
-- **Booking Module**: Handles ticket booking, listing, and cancellation
+- **Booking Module**: Handles ticket booking/scanning QR, listing, and cancellation
 - **Middleware**: Authentication and role-based access control
 
 ## Mobile Frontend (React Native)
@@ -71,7 +72,7 @@ A full-stack ticket booking application built with Golang (backend) and React Na
 - **Login/Register Screen**: User authentication  
 - **Event List Screen**: Browse all available events  
 - **Event Details Screen**: View detailed event info and book tickets  
-- **Booking Screen**: View and manage your bookings  
+- **Booking Screen**: View and manage your bookings 
 - **Profile Screen**: View and edit user profile  
 
 --- 
