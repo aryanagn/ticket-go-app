@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
-	"github.com/mathvaillant/ticket-booking-project-v0/models"
+	"github.com/aryanagn/ticket-go-app/backend/models"
 )
 
 var validate = validator.New()

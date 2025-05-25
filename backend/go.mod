@@ -1,4 +1,4 @@
-module github.com/mathvaillant/ticket-booking-project-v0
+module github.com/aryanagn/ticket-go-app/backend
 
 go 1.22.1
 

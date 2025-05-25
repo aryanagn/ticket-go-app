@@ -4,12 +4,12 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/mathvaillant/ticket-booking-project-v0/config"
-	"github.com/mathvaillant/ticket-booking-project-v0/db"
-	"github.com/mathvaillant/ticket-booking-project-v0/handlers"
-	"github.com/mathvaillant/ticket-booking-project-v0/middlewares"
-	"github.com/mathvaillant/ticket-booking-project-v0/repositories"
-	"github.com/mathvaillant/ticket-booking-project-v0/services"
+	"github.com/aryanagn/ticket-go-app/backend/config"
+	"github.com/aryanagn/ticket-go-app/backend/db"
+	"github.com/aryanagn/ticket-go-app/backend/handlers"
+	"github.com/aryanagn/ticket-go-app/backend/middlewares"
+	"github.com/aryanagn/ticket-go-app/backend/repositories"
+	"github.com/aryanagn/ticket-go-app/backend/services"
 )
 
 func main() {

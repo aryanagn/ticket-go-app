@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gofiber/fiber/v2/log"
-	"github.com/mathvaillant/ticket-booking-project-v0/config"
+	"github.com/aryanagn/ticket-go-app/backend/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

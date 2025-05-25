@@ -8,8 +8,8 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/mathvaillant/ticket-booking-project-v0/models"
-	"github.com/mathvaillant/ticket-booking-project-v0/utils"
+	"github.com/aryanagn/ticket-go-app/backend/models"
+	"github.com/aryanagn/ticket-go-app/backend/utils"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )

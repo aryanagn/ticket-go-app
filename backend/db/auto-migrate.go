@@ -1,7 +1,8 @@
 package db
 
 import (
-	"github.com/mathvaillant/ticket-booking-project-v0/models"
+	"github.com/aryanagn/ticket-go-app/backend/models"
+	
 	"gorm.io/gorm"
 )
 
