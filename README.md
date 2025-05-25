@@ -2,7 +2,7 @@
 
 
 
-A full-stack ticket booking application built with Golang (backend) and React Native (mobile frontend). Built using **React Native**, **Golang**, **PostgreSQL**, **Docker**, and **TypeScript**. This project demonstrates a modern, scalable, and efficient approach to building a ticket booking platform, suitable for learning, experimentation, and extension.
+A full-stack ticket booking application built with Golang (backend) and React Native (mobile frontend). Built using **React Native**, **Golang**, **PostgreSQL**, **Docker**, and **TypeScript**. 
 
 ---
 
