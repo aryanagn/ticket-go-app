@@ -1,30 +1,42 @@
 package main
 
 import (
-	"github.com/aryanagn/ticket-go-backend/config"
-	"github.com/aryanagn/ticket-go-backend/db"
-	"github.com/aryanagn/ticket-go-backend/handlers"
-	"github.com/aryanagn/ticket-go-backend/repositories"
+	"fmt"
+
 	"github.com/gofiber/fiber/v2"
+	"github.com/mathvaillant/ticket-booking-project-v0/config"
+	"github.com/mathvaillant/ticket-booking-project-v0/db"
+	"github.com/mathvaillant/ticket-booking-project-v0/handlers"
+	"github.com/mathvaillant/ticket-booking-project-v0/middlewares"
+	"github.com/mathvaillant/ticket-booking-project-v0/repositories"
+	"github.com/mathvaillant/ticket-booking-project-v0/services"
 )
 
 func main() {
 	envConfig := config.NewEnvConfig()
-	db := db.Init(envConfig, db.DBMigrator) // Replace db.DBMigrator with nil or the correct migrator function
+	db := db.Init(envConfig, db.DBMigrator)
+
 	app := fiber.New(fiber.Config{
-		AppName:      "TicketGoBook",
+		AppName:      "Ticket-Booking",
 		ServerHeader: "Fiber",
 	})
 
 	// Repositories
 	eventRepository := repositories.NewEventRepository(db)
+	ticketRepository := repositories.NewTicketRepository(db)
+	authRepository := repositories.NewAuthRepository(db)
+
+	// Service
+	authService := services.NewAuthService(authRepository)
 
 	// Routing
 	server := app.Group("/api")
+	handlers.NewAuthHandler(server.Group("/auth"), authService)
 
-	// Handlers
-	handlers.NewEventHandler(server.Group("/event"), eventRepository)
+	privateRoutes := server.Use(middlewares.AuthProtected(db))
 
-	app.Listen(":3000")
+	handlers.NewEventHandler(privateRoutes.Group("/event"), eventRepository)
+	handlers.NewTicketHandler(privateRoutes.Group("/ticket"), ticketRepository)
 
+	app.Listen(fmt.Sprintf(":" + envConfig.ServerPort))
 }
