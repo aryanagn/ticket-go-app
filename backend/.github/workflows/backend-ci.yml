@@ -1,0 +1,79 @@
+name: Backend CI/CD
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-ci.yml'
+  pull_request:
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-ci.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:alpine
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DB_HOST: localhost
+      DB_NAME: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_SSLMODE: disable
+      SERVER_PORT: 8081
+      # JWT_SECRET will be set from 1Password
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install 1Password CLI
+        run: |
+          curl -sS https://downloads.1password.com/linux/static/1password-latest.tar.gz | sudo tar -xz -C /usr/local/bin --strip-components=1
+          op --version
+
+      - name: Sign in to 1Password
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+        run: |
+          eval $(op signin --account ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }} --output=env)
+          echo "Signed in to 1Password"
+
+      - name: Export secrets from 1Password
+        id: op-secrets
+        run: |
+          # Example: Fetch JWT_SECRET from 1Password vault/item
+          export JWT_SECRET=$(op read "op://<vault>/<item>/JWT_SECRET")
+          echo "JWT_SECRET=$JWT_SECRET" >> $GITHUB_ENV
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Install dependencies
+        run: cd backend && go mod tidy
+
+      - name: Build
+        run: cd backend && go build -v ./...
+
+      - name: Run tests
+        run: cd backend && go test ./...
+
+      - name: Build Docker image
+        run: docker build -t ticket-booking-backend ./backend
